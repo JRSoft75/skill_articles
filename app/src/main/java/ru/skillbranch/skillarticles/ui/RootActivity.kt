@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.layout_bottombar.*
 import kotlinx.android.synthetic.main.layout_submenu.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
-import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
 import ru.skillbranch.skillarticles.viewmodels.ArticleState
 import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.Notify
@@ -31,10 +30,11 @@ class RootActivity : AppCompatActivity() {
         setupBottombar()
         setupSubmenu()
 
-        val vmFActory = ViewModelFactory("0")
-        viewModel = ViewModelProviders.of(this, vmFActory).get(ArticleViewModel::class.java)
+        val vmFactory = ViewModelFactory("0")
+        viewModel = ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java)
         viewModel.observeState(this){
             renderUi(it)
+            setupToolbar()
         }
         viewModel.observeNotifications(this){
             renderNotification(it)
@@ -42,7 +42,6 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun renderNotification(notify: Notify) {
-
         val snackbar = Snackbar.make(coordinator_container, notify.message, Snackbar.LENGTH_LONG)
             .setAnchorView(bottombar)
 

@@ -10,6 +10,7 @@ import ru.skillbranch.skillarticles.extensions.format
 
 class ArticleViewModel(private val articleId:String) : BaseViewModel<ArticleState>(ArticleState()), IArticleViewModel {
 private val repository = ArticleRepository
+    private var menuIsShown: Boolean = false
     init{
         //subscribe on mutable data
         subscribeOnDataSource(getArticleData()){ article, state->
@@ -17,6 +18,7 @@ private val repository = ArticleRepository
             state.copy(
                 shareLink = article.shareLink,
                 title = article.title,
+                author = article.author,
                 category = article.category,
                 categoryIcon = article.categoryIcon,
                 date = article.date.format()
@@ -39,6 +41,7 @@ private val repository = ArticleRepository
             )
         }
 
+        //subscribe on settings
         subscribeOnDataSource(repository.getAppSettings()){ settings, state ->
             state.copy(
                 isDarkMode = settings.isDarkMode,
@@ -62,6 +65,19 @@ private val repository = ArticleRepository
         return repository.loadArticlePersonalInfo(articleId)
     }
 
+    //session state
+    override fun handleToggleMenu() {
+        updateState { state ->
+            state.copy(isShowMenu =  !state.isShowMenu).also { menuIsShown = !state.isShowMenu }
+        }
+    }
+
+    //app settings
+    override fun handleNightMode() {
+        val settings = currentState.toAppSettings()
+        repository.updateSettings(settings.copy(isDarkMode = !settings.isDarkMode))
+    }
+
     override fun handleUpText() {
         repository.updateSettings(currentState.toAppSettings().copy(isBigText = true))
     }
@@ -70,12 +86,8 @@ private val repository = ArticleRepository
         repository.updateSettings(currentState.toAppSettings().copy(isBigText = false))
     }
 
-    override fun handleNightMode() {
-        val settings = currentState.toAppSettings()
-        repository.updateSettings(settings.copy(isDarkMode = !settings.isDarkMode))
-    }
-
     override fun handleLike() {
+        val isLiked = currentState.isLike
         val toggleLike = {
             val info = currentState.toArticlePersonalInfo()
             repository.updateArticlePersonalInfo(info.copy(isLike = !info.isLike))
@@ -83,10 +95,10 @@ private val repository = ArticleRepository
 
         toggleLike()
 
-        val msg = if(currentState.isLike) Notify.TextMessage("MArk is liked")
+        val msg = if(currentState.isLike) Notify.TextMessage("Mark is liked")
         else{
             Notify.ActionMessage(
-                "Don't like it anymore", // message
+                "Don`t like it anymore", // message
                 "No, still like it", //action on snackbar
                 toggleLike //handle
             )
@@ -96,33 +108,16 @@ private val repository = ArticleRepository
     }
 
     override fun handleBookmark() {
-        val toggleBookmark = {
             val info = currentState.toArticlePersonalInfo()
             repository.updateArticlePersonalInfo(info.copy(isBookmark = !info.isBookmark))
-        }
 
-        toggleBookmark()
-
-        val msg = if(currentState.isBookmark) Notify.TextMessage("Mark is Bookmark")
-        else{
-            Notify.ActionMessage(
-                "Don't bookmark it anymore", // message
-                "No, still bookmark it", //action on snackbar
-                toggleBookmark //handle
-            )
-        }
-
-        notify(msg)
+        val msg = if(currentState.isBookmark) "Add to bookmarks" else "Remove from bookmarks"
+        notify(Notify.TextMessage(msg))
     }
 
     override fun handleShare() {
         val msg = "Share is not implemented"
         notify(Notify.ErrorMessage(msg, "OK", null))
-    }
-
-    //session state
-    override fun handleToggleMenu() {
-        updateState { it.copy(isShowMenu = !it.isShowMenu) }
     }
 
     override fun handleSearchMode(isSearch: Boolean) {
@@ -131,6 +126,22 @@ private val repository = ArticleRepository
 
     override fun handleSearch(query: String?) {
         TODO("Not yet implemented")
+    }
+
+    fun hideMenu(){
+        updateState { it.copy(isShowMenu = false) }
+    }
+
+    fun showMenu(){
+        updateState { it.copy(isShowMenu = menuIsShown) }
+    }
+
+    fun handleSearchQuery(query: String){
+        updateState { it.copy(searchQuery = query) }
+    }
+
+    fun handleIsSearch(isSearch: Boolean){
+        updateState { it.copy(isSearch = isSearch) }
     }
 
 }
