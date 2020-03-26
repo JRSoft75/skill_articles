@@ -8,7 +8,7 @@ import ru.skillbranch.skillarticles.extensions.data.toAppSettings
 import ru.skillbranch.skillarticles.extensions.data.toArticlePersonalInfo
 import ru.skillbranch.skillarticles.extensions.format
 
-class ArticleViewModel(private val articleId:String) : BaseViewModel<ArticleState>(ArticleState()) {
+class ArticleViewModel(private val articleId:String) : BaseViewModel<ArticleState>(ArticleState()), IArticleViewModel {
 private val repository = ArticleRepository
     init{
         //subscribe on mutable data
@@ -48,34 +48,34 @@ private val repository = ArticleRepository
     }
 
     //load from network
-    private fun getArticleContent(): LiveData<List<Any>?>{
+     override fun getArticleContent(): LiveData<List<Any>?>{
         return repository.loadArticleContent(articleId)
     }
 
     //load from db
-    private fun getArticleData(): LiveData<ArticleData?>{
+    override fun getArticleData(): LiveData<ArticleData?>{
         return repository.getArticle(articleId)
     }
 
     //load from db
-    private fun getArticlePersonalInfo(): LiveData<ArticlePersonalInfo?>{
+    override fun getArticlePersonalInfo(): LiveData<ArticlePersonalInfo?>{
         return repository.loadArticlePersonalInfo(articleId)
     }
 
-    fun handleUpText() {
+    override fun handleUpText() {
         repository.updateSettings(currentState.toAppSettings().copy(isBigText = true))
     }
 
-    fun handleDownText() {
+    override fun handleDownText() {
         repository.updateSettings(currentState.toAppSettings().copy(isBigText = false))
     }
 
-    fun handleNightMode() {
+    override fun handleNightMode() {
         val settings = currentState.toAppSettings()
         repository.updateSettings(settings.copy(isDarkMode = !settings.isDarkMode))
     }
 
-    fun handleLike() {
+    override fun handleLike() {
         val toggleLike = {
             val info = currentState.toArticlePersonalInfo()
             repository.updateArticlePersonalInfo(info.copy(isLike = !info.isLike))
@@ -95,18 +95,42 @@ private val repository = ArticleRepository
         notify(msg)
     }
 
-    fun handleBookmark() {
-        //TODO("Not yet implemented")
+    override fun handleBookmark() {
+        val toggleBookmark = {
+            val info = currentState.toArticlePersonalInfo()
+            repository.updateArticlePersonalInfo(info.copy(isBookmark = !info.isBookmark))
+        }
+
+        toggleBookmark()
+
+        val msg = if(currentState.isBookmark) Notify.TextMessage("Mark is Bookmark")
+        else{
+            Notify.ActionMessage(
+                "Don't bookmark it anymore", // message
+                "No, still bookmark it", //action on snackbar
+                toggleBookmark //handle
+            )
+        }
+
+        notify(msg)
     }
 
-    fun handleShare() {
+    override fun handleShare() {
         val msg = "Share is not implemented"
         notify(Notify.ErrorMessage(msg, "OK", null))
     }
 
     //session state
-    fun handleToggleMenu() {
+    override fun handleToggleMenu() {
         updateState { it.copy(isShowMenu = !it.isShowMenu) }
+    }
+
+    override fun handleSearchMode(isSearch: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handleSearch(query: String?) {
+        TODO("Not yet implemented")
     }
 
 }
