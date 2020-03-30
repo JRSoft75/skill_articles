@@ -121,11 +121,12 @@ private val repository = ArticleRepository
     }
 
     override fun handleSearchMode(isSearch: Boolean) {
-        TODO("Not yet implemented")
+        updateState { it.copy(isSearch = isSearch) }
     }
 
     override fun handleSearch(query: String?) {
-        TODO("Not yet implemented")
+        query ?: return
+        updateState { it.copy(searchQuery = query) }
     }
 
     fun hideMenu(){
