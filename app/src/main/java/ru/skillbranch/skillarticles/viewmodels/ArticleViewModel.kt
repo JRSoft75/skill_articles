@@ -1,5 +1,6 @@
 package ru.skillbranch.skillarticles.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import ru.skillbranch.skillarticles.data.ArticleData
 import ru.skillbranch.skillarticles.data.ArticlePersonalInfo
@@ -108,8 +109,8 @@ private val repository = ArticleRepository
     }
 
     override fun handleBookmark() {
-            val info = currentState.toArticlePersonalInfo()
-            repository.updateArticlePersonalInfo(info.copy(isBookmark = !info.isBookmark))
+        val info = currentState.toArticlePersonalInfo()
+        repository.updateArticlePersonalInfo(info.copy(isBookmark = !info.isBookmark))
 
         val msg = if(currentState.isBookmark) "Add to bookmarks" else "Remove from bookmarks"
         notify(Notify.TextMessage(msg))

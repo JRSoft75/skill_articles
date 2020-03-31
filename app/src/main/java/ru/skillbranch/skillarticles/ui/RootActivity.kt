@@ -1,13 +1,15 @@
 package ru.skillbranch.skillarticles.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.SearchView
+
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
@@ -42,10 +44,11 @@ class RootActivity : AppCompatActivity() {
 
             //restore search mode
             if(it.isSearch){
+                Log.e("onCreate","it.isSearch=${it.isSearch}  it.searchQuery=${it.searchQuery}")
                 isSearching = true
                 searchQuery = it.searchQuery
+//                setupToolbar()
             }
-            //setupToolbar()
         }
         viewModel.observeNotifications(this){
             renderNotification(it)
@@ -57,7 +60,7 @@ class RootActivity : AppCompatActivity() {
         val menuItem = menu?.findItem(R.id.action_search)
         val searchView = menuItem?.actionView as? SearchView
         searchView?.queryHint = getString(R.string.article_search_placeholder)
-
+        searchView?.isSubmitButtonEnabled = true
         //restore SearchView
         if(isSearching){
             menuItem?.expandActionView()
@@ -77,13 +80,14 @@ class RootActivity : AppCompatActivity() {
             }
         })
 
+
         searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.handleSearch(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean {
                 viewModel.handleSearch(newText)
                 return true
             }
@@ -177,5 +181,7 @@ class RootActivity : AppCompatActivity() {
             it.marginEnd = this.dpToIntPx(16)
             logo.layoutParams = it
         }
+
+
     }
 }
