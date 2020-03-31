@@ -22,14 +22,14 @@ class SubmenuBehavior: CoordinatorLayout.Behavior<ArticleSubmenu>() {
         child: ArticleSubmenu,
         dependency: View
     ): Boolean {
-        return if(child.isOpen && dependency is Bottombar && dependency.translationY >=0){
+        return if(child.isOpen  && dependency.translationY >=0f){
             animate(child, dependency)
             true
         }else false
     }
 
-    private fun animate(child:ArticleSubmenu, dependency: Bottombar){
-        val fraction = dependency.translationY/dependency.minHeight
+    private fun animate(child:ArticleSubmenu, dependency: View){
+        val fraction = dependency.translationY/dependency.height
         child.translationX = (child.width + child.marginRight) * fraction
         Log.e("SubmenuBehavior", "fraction = $fraction translationX = ${child.translationX}")
     }
