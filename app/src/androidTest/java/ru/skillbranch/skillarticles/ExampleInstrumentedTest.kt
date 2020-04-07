@@ -59,7 +59,6 @@ class ExampleInstrumentedTest {
 
         var actualIndexes = content.indexesOf("sed")
         Assert.assertEquals(listOf(322, 930, 1032, 1060), actualIndexes)
-
         actualIndexes = content.indexesOf("sed", false)
         Assert.assertEquals(listOf(322, 930, 1032), actualIndexes)
 

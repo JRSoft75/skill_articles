@@ -8,14 +8,14 @@ fun String?.indexesOf( substr: String, ignoreCase: Boolean = true): List<Int> {
 
     this ?: return emptyList()
     if (ignoreCase) {
+        sourseText = this.toLowerCase()
+        findStr = substr.toLowerCase()
+    } else {
         sourseText = this
         findStr = substr
-    } else {
-        this.toLowerCase()
-        findStr = substr.toLowerCase()
     }
         while (lastIndex != -1) {
-            lastIndex = this.indexOf(findStr, lastIndex)
+            lastIndex = sourseText.indexOf(findStr, lastIndex)
             if (lastIndex != -1) {
                 result.add(lastIndex)
                 lastIndex += 1
