@@ -49,6 +49,7 @@ class ArticleViewModel(private val articleId: String) :
             state.copy(
                 isBookmark = info.isBookmark,
                 isLike = info.isLike
+
             )
         }
 
