@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.BaseViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import ru.skillbranch.skillarticles.viewmodels.base.Notify
-import ru.skillbranch.skillarticles.viewmodels.base.ViewModelDelegate
+//import ru.skillbranch.skillarticles.viewmodels.base.ViewModelDelegate
 
 abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatActivity() {
     protected abstract val binding:Binding
@@ -39,7 +39,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         binding.restoreUi(savedInstanceState)
     }
 
-    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<ViewModel> {
+/*    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<ViewModel> {
         return ViewModelDelegate(ViewModel::class.java,"test args")
-    }
+    }*/
 }
