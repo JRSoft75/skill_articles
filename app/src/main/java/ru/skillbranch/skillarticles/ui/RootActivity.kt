@@ -11,11 +11,12 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 
-import android.widget.Toolbar
+
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.text.getSpans
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
