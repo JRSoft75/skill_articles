@@ -33,7 +33,18 @@ object MarkdownParser {
 
     /** clear markdown text to string without markdown characters */
     fun clear(string: String?): String? {
-        return null
+        val list = findElements(string as CharSequence)
+        var result = ""
+        list.forEach(){ element ->
+            if(element.elements.isNotEmpty()){
+                element.elements.forEach(){
+                    result += clear(it.text.toString())
+                }
+            }else
+                result += element.text
+
+        }
+        return result
     }
 
     /** find markdown elements in markdown text */

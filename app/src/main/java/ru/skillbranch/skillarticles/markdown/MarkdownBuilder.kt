@@ -10,15 +10,16 @@ import android.text.style.URLSpan
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
 import ru.skillbranch.skillarticles.R
+import ru.skillbranch.skillarticles.extensions.attrValue
 import ru.skillbranch.skillarticles.extensions.dpToPx
 import ru.skillbranch.skillarticles.markdown.spans.*
 
 class MarkdownBuilder(context: Context) {
     private val colorSecondary = context.attrValue(R.attr.colorSecondary)
     private val colorPrimary = context.attrValue(R.attr.colorPrimary)
-    private val colorDivider = context.getColor(R.color.color_divider)
     private val colorOnSurface = context.attrValue(R.attr.colorOnSurface)
     private val colorSurface = context.attrValue(R.attr.colorSurface)
+    private val colorDivider = context.getColor(R.color.color_divider)
     private val gap: Float = context.dpToPx(8)
     private val bulletRadius = context.dpToPx(4)
     private val strikeWidth = context.dpToPx(4)
