@@ -22,8 +22,6 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import ru.skillbranch.skillarticles.data.LocalDataHolder
-import ru.skillbranch.skillarticles.data.NetworkDataHolder
 import ru.skillbranch.skillarticles.extensions.indexesOf
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
 import ru.skillbranch.skillarticles.ui.RootActivity
@@ -45,8 +43,8 @@ class ExampleInstrumentedTest {
         @BeforeClass
         @JvmStatic
         fun setup() {
-            LocalDataHolder.disableDelay(true)
-            NetworkDataHolder.disableDelay(true)
+//            LocalDataHolder.disableDelay(true)
+//            NetworkDataHolder.disableDelay(true)
         }
     }
 
@@ -116,7 +114,7 @@ class ExampleInstrumentedTest {
             isShowMenu = true,
             isBigText = true,
             isLoadingContent = false,
-            content = listOf("test content"),
+            content = "test content",
             isLike = true,
             isBookmark = true,
             title = "test title",
@@ -126,8 +124,8 @@ class ExampleInstrumentedTest {
         scenario.onActivity { activity ->
             activity.binding.bind(expectedData)
         }
-
-        Espresso.onView(withId(R.id.submenu))
+Thread.sleep(500)
+            Espresso.onView(withId(R.id.submenu))
             .check(ViewAssertions.matches(isDisplayed()))
         Espresso.onView(withId(R.id.btn_like))
             .check(ViewAssertions.matches(isChecked()))
@@ -205,7 +203,7 @@ class ExampleInstrumentedTest {
         val searchResult = listOf(322 to 325, 930 to 933, 1032 to 1035, 1060 to 1063)
 
         scenario.onActivity { activity ->
-            activity.binding.bind(ArticleState().copy(content = listOf(content)))
+            activity.binding.bind(ArticleState().copy(content = content))
             activity.showSearchBar()
         }
         sleep(500)
