@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.markdown
+package ru.skillbranch.skillarticles.custom.markdown
 
 import android.content.Context
 import android.graphics.Typeface
@@ -12,13 +12,17 @@ import androidx.core.text.inSpans
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.attrValue
 import ru.skillbranch.skillarticles.extensions.dpToPx
-import ru.skillbranch.skillarticles.markdown.spans.*
+import ru.skillbranch.skillarticles.custom.markdown.spans.*
+import ru.skillbranch.skillarticles.data.repositories.Element
+import ru.skillbranch.skillarticles.data.repositories.MarkdownElement
+import ru.skillbranch.skillarticles.data.repositories.MarkdownParser
 
 class MarkdownBuilder(context: Context) {
     private val colorSecondary = context.attrValue(R.attr.colorSecondary)
     private val colorPrimary = context.attrValue(R.attr.colorPrimary)
     private val colorOnSurface = context.attrValue(R.attr.colorOnSurface)
     private val colorSurface = context.attrValue(R.attr.colorSurface)
+    private val opacityColorSurface = context.getColor(R.color.opacity_color_surface)
     private val colorDivider = context.getColor(R.color.color_divider)
     private val gap: Float = context.dpToPx(8)
     private val bulletRadius = context.dpToPx(4)
@@ -27,12 +31,14 @@ class MarkdownBuilder(context: Context) {
     private val headerMarginBottom = context.dpToPx(8)
     private val ruleWidth = context.dpToPx(2)
     private val cornerRadius = context.dpToPx(8)
-    private val linkIcon = context.getDrawable(R.drawable.ic_link_black_24dp)!!
+    private val linkIcon = context.getDrawable(R.drawable.ic_link_black_24dp)!!.apply {
+        setTint(colorSecondary)
+    }
 
-    fun markdownToSpan(string: String): SpannedString{
-        val markdown = MarkdownParser.parse(string)
+
+    fun markdownToSpan(textContent: MarkdownElement.Text): SpannedString{
         return buildSpannedString {
-            markdown.elements.forEach{ buildElement(it, this)}
+            textContent.elements.forEach{ buildElement(it, this)}
         }
     }
 
@@ -89,13 +95,13 @@ class MarkdownBuilder(context: Context) {
                     }
                 }
                 is Element.InlineCode -> {
-                    inSpans(InlineCodeSpan(colorOnSurface, colorSurface, cornerRadius, gap)) {
+                    inSpans(InlineCodeSpan(colorOnSurface, opacityColorSurface, cornerRadius, gap)) {
                         append(element.text)
                     }
                 }
                 is Element.Link -> {
                     inSpans(
-                        IconLinkSpan(linkIcon, colorSecondary, gap, colorPrimary, strikeWidth),
+                        IconLinkSpan(linkIcon,  gap, colorPrimary, strikeWidth),
                         URLSpan(element.link)
                     ) {
                         append(element.text)
