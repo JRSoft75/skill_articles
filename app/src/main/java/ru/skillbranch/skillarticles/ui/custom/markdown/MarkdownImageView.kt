@@ -24,7 +24,7 @@ import java.nio.charset.Charset
 import java.security.MessageDigest
 import kotlin.math.hypot
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.custom.markdown.MarkdownTextView
+import ru.skillbranch.skillarticles.extensions.setPaddingOptionally
 
 
 @SuppressLint("ViewConstructor")

@@ -1,5 +1,5 @@
 <resources>
-    <!-- global colors -->
+    <!-- global colors (for MarkdownCodeView-->
     <attr name="darkSurfaceColor" format="color" />
     <attr name="lightSurfaceColor" format="color" />
     <attr name="darkOnSurfaceColor" format="color" />

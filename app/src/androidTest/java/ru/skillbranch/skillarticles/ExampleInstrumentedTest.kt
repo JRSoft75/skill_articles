@@ -25,8 +25,8 @@ import org.junit.runners.MethodSorters
 import ru.skillbranch.skillarticles.extensions.indexesOf
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
 import ru.skillbranch.skillarticles.ui.RootActivity
-import ru.skillbranch.skillarticles.custom.markdown.spans.SearchFocusSpan
-import ru.skillbranch.skillarticles.custom.markdown.spans.SearchSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchFocusSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchSpan
 import ru.skillbranch.skillarticles.viewmodels.ArticleState
 import java.lang.Thread.sleep
 

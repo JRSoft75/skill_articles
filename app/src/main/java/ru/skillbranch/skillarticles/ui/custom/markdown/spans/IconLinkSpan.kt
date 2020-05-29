@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.custom.markdown.spans
+package ru.skillbranch.skillarticles.ui.custom.markdown.spans
 
 import android.graphics.Canvas
 import android.graphics.DashPathEffect
@@ -22,9 +22,11 @@ class IconLinkSpan(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var iconSize = 0
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var textWidth = 0f
     private val dashs = DashPathEffect(floatArrayOf(dotWidth, dotWidth), 0f)
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var path = Path()
 
@@ -42,16 +44,16 @@ class IconLinkSpan(
         val textStart = x + iconSize + padding
         paint.forLine {
             path.reset()
-            path.moveTo(textStart, bottom.toFloat())
-            path.lineTo(textStart + textWidth, bottom.toFloat())
+            path.moveTo(textStart, y + paint.descent())
+            path.lineTo(textStart + textWidth, y + paint.descent())
             canvas.drawPath(path, paint)
         }
 
 //        paint.forIcon {
-//            canvas.save()
-//            val trY = bottom - linkDrawable.bounds.bottom
-//            canvas.translate(x, trY.toFloat())
-//            linkDrawable.draw(canvas)
+            canvas.save()
+            val trY = y + paint.descent() - linkDrawable.bounds.bottom
+            canvas.translate(x + padding/2f, trY)
+            linkDrawable.draw(canvas)
 //            canvas.restore()
 //        }
 
@@ -68,9 +70,9 @@ class IconLinkSpan(
         end: Int,
         fm: Paint.FontMetricsInt?
     ): Int {
-        if(fm != null){
+        if (fm != null) {
             iconSize = fm.descent - fm.ascent //fontsize
-            linkDrawable.setBounds(0,0,iconSize, iconSize)
+            linkDrawable.setBounds(0, 0, iconSize, iconSize)
         }
         textWidth = paint.measureText(text.toString(), start, end)
         return (iconSize + padding + textWidth).toInt()

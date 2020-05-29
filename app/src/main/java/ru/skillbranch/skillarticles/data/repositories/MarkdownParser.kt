@@ -322,12 +322,12 @@ sealed class MarkdownElement(){
         when(this){
             is Text -> {
                 val end = elements.fold(offset){acc, el ->
-                    acc + el.spread().map {it.text.lenght}.sum()
+                    acc + el.spread().map {it.text.length}.sum()
                 }
                 offset to end
             }
-            is Image -> offset to image.text.lenght + offset
-            is Scroll -> offset to blockCode.text.lenght + offset
+            is Image -> offset to image.text.length + offset
+            is Scroll -> offset to blockCode.text.length + offset
         }
     }
 

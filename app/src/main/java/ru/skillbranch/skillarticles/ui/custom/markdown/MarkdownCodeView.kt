@@ -16,7 +16,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.VisibleForTesting
 import androidx.core.view.setPadding
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.custom.markdown.MarkdownTextView
 import ru.skillbranch.skillarticles.extensions.attrValue
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.dpToPx
@@ -29,7 +28,7 @@ class MarkdownCodeView private constructor(
 ) : ViewGroup(context, null, 0), IMarkdownView {
     override var fontSize: Float = fontSize
         set(value) {
-            tv_codeView.texSize = value * 0.85f
+            tv_codeView.textSize = value * 0.85f
             field = value
         }
 

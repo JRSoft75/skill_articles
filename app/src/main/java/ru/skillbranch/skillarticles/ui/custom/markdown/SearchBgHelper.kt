@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.custom.markdown
+package ru.skillbranch.skillarticles.ui.custom.markdown
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -10,9 +10,9 @@ import android.text.Spanned
 import androidx.annotation.VisibleForTesting
 import androidx.core.text.getSpans
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.custom.markdown.spans.HeaderSpan
-import ru.skillbranch.skillarticles.custom.markdown.spans.SearchFocusSpan
-import ru.skillbranch.skillarticles.custom.markdown.spans.SearchSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.spans.HeaderSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchFocusSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchSpan
 import ru.skillbranch.skillarticles.extensions.*
 
 @VisibleForTesting

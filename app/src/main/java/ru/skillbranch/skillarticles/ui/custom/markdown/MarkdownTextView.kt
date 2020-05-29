@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.custom.markdown
+package ru.skillbranch.skillarticles.ui.custom.markdown
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,13 +7,11 @@ import android.graphics.Rect
 import android.text.Spannable
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
-import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.graphics.withTranslation
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.attrValue
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
-import ru.skillbranch.skillarticles.ui.custom.markdown.IMarkdownView
 
 @SuppressLint("ViewConstructor")
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
