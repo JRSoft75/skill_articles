@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.data.repositories
+package ru.skillbranch.skillarticles.data
 
 import java.util.regex.Pattern
 
@@ -29,7 +29,11 @@ object MarkdownParser {
     /** parse markdown text to elements */
     fun parse(string: String): List<MarkdownElement> {
         val elements = mutableListOf<Element>()
-        elements.addAll(findElements(string))
+        elements.addAll(
+            findElements(
+                string
+            )
+        )
         return elements.fold(mutableListOf()){acc, element ->
             val last = acc.lastOrNull()
             when(element){
@@ -265,7 +269,8 @@ object MarkdownParser {
                 //10 -> BLOCK CODE - optionally
                 10 -> {
                     text = string.subSequence(startIndex.plus(3), endIndex.minus(3)).toString()
-                    val element = Element.BlockCode(text)
+                    val element =
+                        Element.BlockCode(text)
                     parents.add(element)
                     lastStartIndex = endIndex
                 }
@@ -296,7 +301,12 @@ object MarkdownParser {
                     val (alt, url, title) = "^!\\[([^\\[\\]]*?)?]\\((.*?) \"(.*?)\"\\)$".toRegex()
                         .find(text)!!.destructured
 
-                    val element = Element.Image(url, if(alt.isBlank()) null else alt, title)
+                    val element =
+                        Element.Image(
+                            url,
+                            if (alt.isBlank()) null else alt,
+                            title
+                        )
                     parents.add(element)
                     lastStartIndex = endIndex
                 }
@@ -449,7 +459,7 @@ fun List<MarkdownElement>.clearContent(): String{
     return StringBuilder().apply {
         this@clearContent.forEach{
             when(it){
-                is MarkdownElement.Text -> it.elements.forEach{el->append(el.clearContent())}
+                is MarkdownElement.Text -> it.elements.forEach{ el->append(el.clearContent())}
                 is MarkdownElement.Image -> append(it.image.clearContent())
                 is MarkdownElement.Scroll -> append(it.blockCode.clearContent())
             }

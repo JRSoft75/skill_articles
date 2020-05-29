@@ -10,9 +10,9 @@ import android.text.Spanned
 import androidx.annotation.VisibleForTesting
 import androidx.core.text.getSpans
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.ui.custom.markdown.spans.HeaderSpan
-import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchFocusSpan
-import ru.skillbranch.skillarticles.ui.custom.markdown.spans.SearchSpan
+import ru.skillbranch.skillarticles.ui.custom.spans.HeaderSpan
+import ru.skillbranch.skillarticles.ui.custom.spans.SearchFocusSpan
+import ru.skillbranch.skillarticles.ui.custom.spans.SearchSpan
 import ru.skillbranch.skillarticles.extensions.*
 
 @VisibleForTesting
