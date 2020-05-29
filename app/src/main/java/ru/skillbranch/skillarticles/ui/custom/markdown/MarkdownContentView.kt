@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
-import ru.skillbranch.skillarticles.data.MarkdownElement
+import ru.skillbranch.skillarticles.data.repositories.MarkdownElement
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.setPaddingOptionally
 import kotlin.properties.Delegates

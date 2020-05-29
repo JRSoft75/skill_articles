@@ -2,8 +2,8 @@ package ru.skillbranch.skillarticles
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.skillbranch.skillarticles.data.Element
-import ru.skillbranch.skillarticles.data.MarkdownParser
+import ru.skillbranch.skillarticles.data.repositories.Element
+import ru.skillbranch.skillarticles.data.repositories.MarkdownParser
 
 /**
  * Example local unit test, which will execute on the development machine (host).

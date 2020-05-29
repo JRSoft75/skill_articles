@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.data
+package ru.skillbranch.skillarticles.data.repositories
 
 import java.util.regex.Pattern
 
@@ -270,7 +270,9 @@ object MarkdownParser {
                 10 -> {
                     text = string.subSequence(startIndex.plus(3), endIndex.minus(3)).toString()
                     val element =
-                        Element.BlockCode(text)
+                        Element.BlockCode(
+                            text
+                        )
                     parents.add(element)
                     lastStartIndex = endIndex
                 }
