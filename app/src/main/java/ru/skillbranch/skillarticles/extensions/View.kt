@@ -30,7 +30,7 @@ fun View.setPaddingOptionally(
     right: Int = paddingRight,
     bottom: Int = paddingBottom
 ) {
-    val lp: ViewGroup.LayoutParams = this.getLayoutParams() as ViewGroup.LayoutParams
+//    val lp: ViewGroup.LayoutParams = this.getLayoutParams() as ViewGroup.LayoutParams
     this.setPadding(
         left ?: paddingLeft,
         top ?: paddingTop,
