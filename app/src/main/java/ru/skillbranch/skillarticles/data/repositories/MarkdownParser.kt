@@ -269,27 +269,23 @@ object MarkdownParser {
                 //10 -> BLOCK CODE - optionally
                 10 -> {
                     text = string.subSequence(startIndex.plus(3), endIndex.minus(3)).toString()
-                    val element =
-                        Element.BlockCode(
-                            text
-                        )
+                    val element =Element.BlockCode(text)
                     parents.add(element)
                     lastStartIndex = endIndex
                 }
 
                 //11 -> NUMERIC LIST
                 11 -> {
-                    text = string.subSequence(startIndex, endIndex)
+                    val reg = "(^\\d{1,2}.)".toRegex().find(string.substring(startIndex, endIndex))
+                    val order = reg!!.value
+                    text = string.subSequence(startIndex.plus(order.length.inc()), endIndex).toString()
 //                    val (order:String, _ , result:String) = "(^\\d+)(.? )(.+)".toRegex().find(text)!!.destructured
-                    val (order:String,  result:String) = "(^\\d+.) (.+)".toRegex().find(text)!!.destructured
-                    val subelements =
-                        findElements(
-                            result
-                        )
+//                    val (order:String,  result:String) = "(^\\d+.) (.+)".toRegex().find(text)!!.destructured
+                    val subelements = findElements(text)
                     val element =
                         Element.OrderedListItem(
                             order,
-                            result,
+                            text.toString(),
                             subelements
                         )
                     parents.add(element)
@@ -317,11 +313,7 @@ object MarkdownParser {
 
         if(lastStartIndex < string.length){
             val text = string.subSequence(lastStartIndex, string.length)
-            parents.add(
-                Element.Text(
-                    text
-                )
-            )
+            parents.add(Element.Text(text))
         }
 
         return parents

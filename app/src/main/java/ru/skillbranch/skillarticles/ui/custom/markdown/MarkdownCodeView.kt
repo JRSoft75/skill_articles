@@ -156,7 +156,7 @@ class MarkdownCodeView private constructor(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     public override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        var usedHeight = 0
+        var usedHeight = paddingTop
         val bodyWidth = r - l - paddingLeft - paddingRight
         val left = paddingLeft
         val right = paddingLeft + bodyWidth
@@ -186,12 +186,19 @@ class MarkdownCodeView private constructor(
             )
 
             iv_switch.layout(
-                left,
+                iv_copy.right - (2.5f * iconSize).toInt(),
                 usedHeight,
-                right,
-                usedHeight + sv_scroll.measuredHeight
+                iv_copy.right - (1.5f * iconSize).toInt(),
+                usedHeight + + iconSize
             )
         }
+
+        sv_scroll.layout(
+            left,
+            usedHeight,
+            right,
+            usedHeight + sv_scroll.measuredHeight
+        )
     }
 
     override fun renderSearchPosition(searchPosition: Pair<Int, Int>, offset: Int) {
