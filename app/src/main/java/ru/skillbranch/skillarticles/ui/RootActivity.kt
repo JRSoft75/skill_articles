@@ -13,15 +13,12 @@ import kotlinx.android.synthetic.main.layout_bottombar.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
-import ru.skillbranch.skillarticles.ui.base.BaseActivity
 import ru.skillbranch.skillarticles.ui.article.IArticleView
-
+import ru.skillbranch.skillarticles.ui.base.BaseActivity
 import ru.skillbranch.skillarticles.viewmodels.RootViewModel
-import ru.skillbranch.skillarticles.viewmodels.article.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
-import ru.skillbranch.skillarticles.viewmodels.base.Notify
 import ru.skillbranch.skillarticles.viewmodels.base.NavigationCommand
-import ru.skillbranch.skillarticles.viewmodels.base.ViewModelFactory
+import ru.skillbranch.skillarticles.viewmodels.base.Notify
 
 class RootActivity : BaseActivity<RootViewModel>(),
     IArticleView {
@@ -101,6 +98,6 @@ class RootActivity : BaseActivity<RootViewModel>(),
 }
 
 private fun BottomNavigationView.selectDestination(destination: NavDestination) {
-//    if(destination.parent?.id in listOf(R.id.nav_articles, R.id.nav_profile, R.id.nav_bookmarks, R.id.nav_transcriptions))
-//        this.menu.findItem()
+    if(destination.parent?.id in listOf(R.id.nav_articles, R.id.nav_profile, R.id.nav_bookmarks, R.id.nav_transcriptions))
+        this.menu.findItem(destination.parent!!.id).setChecked(true)
 }
