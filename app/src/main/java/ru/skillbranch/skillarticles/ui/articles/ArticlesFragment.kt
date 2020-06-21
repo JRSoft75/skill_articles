@@ -2,6 +2,9 @@ package ru.skillbranch.skillarticles.ui.articles
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_articles.*
 import ru.skillbranch.skillarticles.data.ArticleItemData
 import ru.skillbranch.skillarticles.ui.base.BaseFragment
 import ru.skillbranch.skillarticles.ui.base.Binding
@@ -10,6 +13,7 @@ import ru.skillbranch.skillarticles.viewmodels.articles.ArticlesState
 import ru.skillbranch.skillarticles.viewmodels.articles.ArticlesViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import ru.skillbranch.skillarticles.viewmodels.base.NavigationCommand
+import ru.skillbranch.skillarticles.R
 
 class ArticlesFragment: BaseFragment<ArticlesViewModel>() {
     override val viewModel: ArticlesViewModel by viewModels()
@@ -24,9 +28,9 @@ class ArticlesFragment: BaseFragment<ArticlesViewModel>() {
             item.authorAvatar,
             item.category,
             item.categoryIcon,
-            item.date,
             item.poster,
-            item.title
+            item.title,
+            item.date
         )
 
         viewModel.navigate(NavigationCommand.To(action.actionId, action.arguments))
@@ -41,7 +45,7 @@ class ArticlesFragment: BaseFragment<ArticlesViewModel>() {
     }
 
     inner class ArticlesBinding: Binding() {
-        private var articles: List<ArticleItemData> by RenderProp(emptyList()) {
+        private var articles: List<ArticleItemData> by RenderProp(emptyList<ArticleItemData>()) {
             articlesAdapter.submitList(it)
         }
 

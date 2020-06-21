@@ -14,6 +14,7 @@ import androidx.annotation.Px
 import androidx.annotation.VisibleForTesting
 import androidx.core.animation.doOnEnd
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
@@ -289,6 +290,7 @@ class MarkdownImageView private constructor(
             dst.writeInt(if(ssIsOpen) 1 else 0)
             dst.writeFloat(ssAspectRatio)
         }
+
 
         override fun describeContents() = 0
 

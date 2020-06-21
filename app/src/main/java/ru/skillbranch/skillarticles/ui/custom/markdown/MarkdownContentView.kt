@@ -190,7 +190,7 @@ class MarkdownContentView @JvmOverloads constructor(
         children.filter { it !is MarkdownTextView }
             .forEach { it.saveHierarchyState(layoutManager.container) }
         //save only markdownContentView
-        dispathFreezeSelfOnly(container)
+//        dispathFreezeSelfOnly(container) TODO !!!
     }
 
     private class LayoutManager(): Parcelable{

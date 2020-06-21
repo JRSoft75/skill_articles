@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_root.*
+import kotlinx.android.synthetic.main.layout_bottombar.*
 import ru.skillbranch.skillarticles.ui.RootActivity
 import ru.skillbranch.skillarticles.viewmodels.base.BaseViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 
-class BaseFragment<T: BaseViewModel<out IViewModelState>> : Fragment() {
+abstract class BaseFragment<T: BaseViewModel<out IViewModelState>> : Fragment() {
     val root: RootActivity
         get() = activity as RootActivity
     open val binding: Binding? = null
@@ -21,8 +22,11 @@ class BaseFragment<T: BaseViewModel<out IViewModelState>> : Fragment() {
     val toolbar
         get() = root.toolbar
 
+    open val bottombar
+        get() = root.bottombar
+
     //set listeners, tuning views
-    abstract fun SetupViews()
+    abstract fun setupViews()
 
     override fun onCreateView(
         inflater: LayoutInflater,

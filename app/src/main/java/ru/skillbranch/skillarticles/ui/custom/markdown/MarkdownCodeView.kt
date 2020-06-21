@@ -223,8 +223,7 @@ class MarkdownCodeView private constructor(
     }
 
     override fun onSaveInstanceState(): Parcelable? {
-        val savedState =
-            SavedState(super.onSaveInstanceState())
+        val savedState = SavedState(super.onSaveInstanceState())
         savedState.ssIsManual = isManual
         savedState.ssIsDark = isDark
         return savedState
