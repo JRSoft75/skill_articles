@@ -135,6 +135,7 @@ class ArticleViewModel(
         notify(Notify.TextMessage("Code copy to clipboard"))
     }
 
+
     override fun handleSendComment(comment: String) {
         if(!currentState.isAuth) navigate(NavigationCommand.StartLogin())
         else {

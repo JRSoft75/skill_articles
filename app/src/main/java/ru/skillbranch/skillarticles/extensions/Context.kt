@@ -35,6 +35,11 @@ fun Context.hideKeyboard(view: View){
     imm.hideSoftInputFromWindow(view.windowToken,0)
 }
 
+fun Context.showKeyboard(view: View){
+    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(view,0)
+}
+
 fun Context.attrValue(@AttrRes res:Int): Int{
     val tv = TypedValue()
     return   if(this.theme.resolveAttribute(res, tv, true)) tv.data
