@@ -15,6 +15,7 @@ import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
 import ru.skillbranch.skillarticles.ui.article.IArticleView
 import ru.skillbranch.skillarticles.ui.base.BaseActivity
+import ru.skillbranch.skillarticles.ui.custom.Bottombar
 import ru.skillbranch.skillarticles.viewmodels.RootViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import ru.skillbranch.skillarticles.viewmodels.base.NavigationCommand
@@ -47,11 +48,20 @@ class RootActivity : BaseActivity<RootViewModel>(),
         navController.addOnDestinationChangedListener{ controller, destination, arguments ->
             //if destination change set select bottom navigation item
             nav_view.selectDestination(destination)
+
+/*            if(destination.id == R.id.nav_auth) nav_view.selectItem(arguments?.get("private_destination") as Int?)
+
+            if(isAuth && destination.id == R.id.nav_auth){
+                controller.popBackStack()
+                val private: Int? = arguments?.get("private_destination") as Int?
+                if(private != null) controller.navigate(private)
+            }*/
         }
     }
 
     override fun renderNotification(notify: Notify) {
         val snackbar = Snackbar.make(container, notify.message, Snackbar.LENGTH_LONG)
+        snackbar.anchorView = findViewById<Bottombar>(R.id.bottombar)?: nav_view
 
         if(bottombar != null) snackbar.anchorView = bottombar
         else snackbar.anchorView = nav_view
