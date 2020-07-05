@@ -15,10 +15,10 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.item_article.*
 import ru.skillbranch.skillarticles.R
-import ru.skillbranch.skillarticles.data.ArticleItemData
 import ru.skillbranch.skillarticles.data.models.ArticleItemData
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.format
+import ru.skillbranch.skillarticles.ui.custom.ArticleItemView
 
 class ArticlesAdapter(private val listener: (ArticleItemData) -> Unit) :
     PagedListAdapter<ArticleItemData, ArticleVH>(ArticleDiffCallback()) {
@@ -49,7 +49,8 @@ class ArticleVH(override val containerView: View) : RecyclerView.ViewHolder(cont
         listener: (ArticleItemData)-> Unit
     ){
        //if use placeholder item may be null
-        (containerView as ArticleItemView).bind(item!!)
+        //TODO uncomment
+//        (containerView as ArticleItemView).bind(item!!)
         itemView.setOnClickListener{listener(item!!)}
     }
 }

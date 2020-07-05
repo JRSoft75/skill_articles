@@ -44,7 +44,7 @@ class RootActivity : BaseActivity<RootViewModel>(),
             viewModel.navigate(NavigationCommand.To(it.itemId))
             true
         }
-
+//TODO uncomment
         navController.addOnDestinationChangedListener{ controller, destination, arguments ->
             //if destination change set select bottom navigation item
             nav_view.selectDestination(destination)

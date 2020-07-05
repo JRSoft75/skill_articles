@@ -42,8 +42,7 @@ object ArticlesRepository {
     }
 }
 
-class ArticlesDataFactory(val strategy: ArticleStrategy) :
-DataSource.Factory<Int, ArticleItemData>() {
+class ArticlesDataFactory(val strategy: ArticleStrategy) : DataSource.Factory<Int, ArticleItemData>() {
     override fun create(): DataSource<Int, ArticleItemData> = ArticleDataSource(strategy)
 }
 

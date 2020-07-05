@@ -20,17 +20,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_article.*
-import kotlinx.android.synthetic.main.layout_bottombar.*
 import kotlinx.android.synthetic.main.layout_bottombar.view.*
 import kotlinx.android.synthetic.main.search_view_layout.*
-import kotlinx.android.synthetic.main.layout_submenu.view.*
 import ru.skillbranch.skillarticles.R
 import kotlinx.android.synthetic.main.layout_submenu.view.btn_text_down
 import kotlinx.android.synthetic.main.layout_submenu.view.btn_text_up
 import kotlinx.android.synthetic.main.layout_submenu.view.switch_mode
 import ru.skillbranch.skillarticles.data.repositories.MarkdownElement
 import ru.skillbranch.skillarticles.extensions.*
-import ru.skillbranch.skillarticles.ui.articles.CommentsAdapter
 import ru.skillbranch.skillarticles.ui.base.*
 import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
@@ -50,7 +47,7 @@ class ArticleFragment : BaseFragment<ArticleViewModel>(), IArticleView {
     }
 
     private val commentsAdapter by lazy {
-        CommentsAdapter{
+        CommentsAdapter {
             Log.e("ArticleFragment", "click on comment: ${it.id} ${it.slug}");
             viewModel.handleReplyTo(it.slug, it.user.name)
             et_comment.requestFocus()
