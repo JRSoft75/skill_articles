@@ -9,41 +9,39 @@ abstract class Binding {
     val delegates = mutableMapOf<String, RenderProp<out Any>>()
     var isInflated = false
 
-    open val afterInflated: (()-> Unit)? = null
-
-    fun onFinishInflate(){
-        if(!isInflated){
+    open val afterInflated: (() -> Unit)? = null
+    fun onFinishInflate() {
+        if (!isInflated) {
             afterInflated?.invoke()
             isInflated = true
-            rebind()
         }
     }
 
-    fun rebind(){
+    fun rebind() {
         delegates.forEach { it.value.bind() }
     }
 
     abstract fun bind(data: IViewModelState)
-
-    //override this if need save binding in bundle
-    open fun saveUI(outState: Bundle){
+    /**
+     * override this if need save binding in bundle
+     */
+    open fun saveUi(outState: Bundle) {
         //empty default implementation
     }
 
-    //override this if need restore binding in bundle
-    open fun restoreUI(outState: Bundle?){
+    /**
+     * override this if need restore binding from bundle
+     */
+    open fun restoreUi(savedState: Bundle?) {
         //empty default implementation
     }
-
-
-
 
     @Suppress("UNCHECKED_CAST")
     fun <A, B, C, D> dependsOn(
         vararg fields: KProperty<*>,
         onChange: (A, B, C, D) -> Unit
     ) {
-        check(fields.size == 4) {"Names size must be 4, current ${fields.size}"}
+        check(fields.size == 4) { "Names size must be 4, current ${fields.size}" }
         val names = fields.map { it.name }
 
         names.forEach {
@@ -57,4 +55,6 @@ abstract class Binding {
             }
         }
     }
+
+
 }

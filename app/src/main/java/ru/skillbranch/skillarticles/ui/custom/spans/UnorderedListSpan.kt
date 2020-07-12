@@ -27,17 +27,17 @@ class UnorderedListSpan(
         lineTop: Int, lineBaseline: Int, lineBottom: Int, text: CharSequence?, lineStart: Int,
         lineEnd: Int, isFirstLine: Boolean, layout: Layout
     ) {
-        //only for first line draw bullet
-         if(isFirstLine){
-             paint.withCustomColor {
-                 canvas.drawCircle(
-                     gapWidth + currentMarginLocation + bulletRadius,
-                     (lineTop + layout.getLineBottomWithoutPadding(layout.getLineForOffset(lineStart)))/2f,
-                     bulletRadius,
-                     paint
-                 )
-             }
-         }
+        //only for fist line draw bullet
+        if (isFirstLine) {
+            paint.withCustomColor{
+                canvas.drawCircle(
+                    gapWidth + currentMarginLocation + bulletRadius,
+                    (lineTop + layout.getLineBottomWithoutPadding(layout.getLineForOffset(lineStart))) / 2f,
+                    bulletRadius,
+                    paint
+                )
+            }
+        }
     }
 
     private inline fun Paint.withCustomColor(block: () -> Unit) {
